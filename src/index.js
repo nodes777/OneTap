@@ -1,7 +1,6 @@
 import Phaser from "phaser";
 import pigMailboxSpriteSheet from "./assets/PigMailbox1.png";
 import cloudImg from "./assets/cloud.png";
-
 const config = {
 	type: Phaser.AUTO,
 	parent: "root",
@@ -70,6 +69,7 @@ function create() {
 
 	const spriteScale = 10;
 	const scaleRatio = window.devicePixelRatio / 3;
+
 	//cloud tween
 	const cloud = this.add.image(-100, 50, "cloud").setScale(spriteScale - 2);
 	const cloudTween = this.tweens.add({
@@ -79,6 +79,7 @@ function create() {
 		ease: "linear",
 		loop: 100,
 	});
+
 	// pigMailbox Sprite
 	const pigMailbox = this.add
 		.sprite(game.canvas.width / 2, game.canvas.height / 2, "PigMailbox")

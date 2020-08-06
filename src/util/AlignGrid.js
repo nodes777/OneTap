@@ -1,4 +1,4 @@
-class AlignGrid {
+export class AlignGrid {
 	constructor(config) {
 		if (!config.scene) {
 			console.log("missing scene!");
