@@ -28,9 +28,6 @@ function preload() {
 }
 
 function create() {
-	const width = this.scale.gameSize.width;
-	const height = this.scale.gameSize.height;
-
 	// make animation configs
 	const popOpenConfig = {
 		key: "popOpenAnimation",
@@ -77,7 +74,7 @@ function create() {
 		x: game.canvas.width + 200,
 		duration: 20000,
 		ease: "linear",
-		loop: 100,
+		loop: true,
 	});
 	// pigMailbox Sprite
 	const pigMailbox = this.add
