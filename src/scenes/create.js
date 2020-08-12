@@ -1,33 +1,10 @@
-import Phaser from "phaser";
-import pigMailboxSpriteSheet from "./assets/PigMailbox1.png";
-import cloudImg from "./assets/cloud.png";
+export function create() {
+	// WebFont.load({
+	// 	custom: {
+	// 		families: ["vcr"],
+	// 	},
+	// });
 
-const config = {
-	type: Phaser.AUTO,
-	parent: "root",
-	mode: Phaser.Scale.FIT,
-	width: 640,
-	height: 640,
-	pixelArt: true,
-	backgroundColor: "ffe07e",
-	scene: {
-		preload: preload,
-		create: create,
-	},
-};
-
-const game = new Phaser.Game(config);
-
-function preload() {
-	this.load.spritesheet("PigMailbox", pigMailboxSpriteSheet, {
-		frameWidth: 64,
-		frameHeight: 64,
-	});
-
-	this.load.image("cloud", cloudImg);
-}
-
-function create() {
 	// make animation configs
 	const popOpenConfig = {
 		key: "popOpenAnimation",
@@ -67,32 +44,63 @@ function create() {
 
 	const spriteScale = 10;
 	const scaleRatio = window.devicePixelRatio / 3;
+
 	//cloud tween
-	const cloud = this.add.image(-100, 50, "cloud").setScale(spriteScale - 2);
+	const cloud = this.add
+		.image(-100, game.canvas.height / 10, "cloud")
+		.setScale(spriteScale - 2);
 	const cloudTween = this.tweens.add({
 		targets: cloud,
 		x: game.canvas.width + 200,
 		duration: 20000,
 		ease: "linear",
-		loop: true,
+		loop: 100,
 	});
+
+	// rect for ground to extend through game canvas
+	const rect = this.add.rectangle(
+		game.canvas.width / 2,
+		game.canvas.height,
+		game.canvas.width,
+		22 * spriteScale,
+		0x72dcbb,
+		1
+	);
+
 	// pigMailbox Sprite
 	const pigMailbox = this.add
-		.sprite(game.canvas.width / 2, game.canvas.height / 2, "PigMailbox")
+		.sprite(game.canvas.width / 2, game.canvas.height, "PigMailbox")
+		.setOrigin(0.5, 1)
 		.setScale(spriteScale);
 
 	// Make text
 	this.pigWords = this.make.text({
 		x: game.canvas.width / 2,
-		y: game.canvas.height / 10,
+		y: game.canvas.height / 2,
 		text: "Please put me back in",
 		origin: 0.5,
 		style: {
-			font: "bold 30px Arial",
+			font: "bold 64px vcr",
 			fill: "white",
 		},
 	});
+	// .setShadow(2, 2, "#333333", 2, false, true);
+
+	console.log(this.pigWords.width);
+	console.log(this.pigWords.height);
+
 	this.pigWords.setVisible(false);
+	this.pigWords.setDepth(1);
+	// this.textRect = this.add.rectangle(
+	// 	game.canvas.width / 2,
+	// 	game.canvas.height / 2,
+	// 	this.pigWords.width + 40,
+	// 	this.pigWords.height + 40,
+	// 	0x72dcbb,
+	// 	1
+	// );
+	// this.textRect.setDepth(0);
+	// this.textRect.setVisible(false);
 
 	// Input handler
 	this.input.on(
@@ -118,37 +126,18 @@ function create() {
 		);
 
 		pigMailbox.on("animationcomplete_grumpyAnimation", () => {
-			pigIn ? null : this.pigWords.setVisible(true);
+			pigIn
+				? null
+				: (() => {
+						this.pigWords.setVisible(true);
+						// this.textRect.setVisible(true);
+				  })();
 		});
 	};
 
 	const putInAction = () => {
 		pigMailbox.play("putInAnimation");
 		this.pigWords.setVisible(false);
+		// this.textRect.setVisible(false);
 	};
 }
-// function resizeApp() {
-// 	// Width-height-ratio of game resolution
-// 	// Replace 360 with your game width, and replace 640 with your game height
-// 	let game_ratio = window.innerWidth / window.innerHeight;
-
-// 	// Make div full height of browser and keep the ratio of game resolution
-// 	let div = document.getElementById("root");
-// 	div.style.width = window.innerHeight * game_ratio + "px";
-// 	div.style.height = window.innerHeight + "px";
-
-// 	// Check if device DPI messes up the width-height-ratio
-// 	let canvas = document.getElementsByTagName("canvas")[0];
-
-// 	let dpi_w = parseInt(div.style.width) / canvas.width;
-// 	let dpi_h = parseInt(div.style.height) / canvas.height;
-
-// 	let height = window.innerHeight * (dpi_w / dpi_h);
-// 	let width = height * game_ratio;
-
-// 	// Scale canvas
-// 	canvas.style.width = width + "px";
-// 	canvas.style.height = height + "px";
-// }
-
-// window.addEventListener("resize", resizeApp);
