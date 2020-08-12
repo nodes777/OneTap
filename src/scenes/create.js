@@ -1,10 +1,5 @@
+import { game } from "../index";
 export function create() {
-	// WebFont.load({
-	// 	custom: {
-	// 		families: ["vcr"],
-	// 	},
-	// });
-
 	// make animation configs
 	const popOpenConfig = {
 		key: "popOpenAnimation",

@@ -1,3 +1,8 @@
+import pigMailboxSpriteSheet from "../assets/PigMailbox1.png";
+import cloudImg from "../assets/cloud.png";
+
+// import vcrFont from "./assets/VCR.ttf";
+
 export function preload() {
 	this.load.script(
 		"webfont",

@@ -1,7 +1,4 @@
 import Phaser from "phaser";
-import pigMailboxSpriteSheet from "./assets/PigMailbox1.png";
-import cloudImg from "./assets/cloud.png";
-// import vcrFont from "./assets/VCR.ttf";
 
 import { init } from "./scenes/init";
 import { preload } from "./scenes/preload";
@@ -22,4 +19,4 @@ const config = {
 	},
 };
 
-const game = new Phaser.Game(config);
+export const game = new Phaser.Game(config);
